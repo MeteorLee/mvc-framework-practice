@@ -39,3 +39,6 @@ HttpServletResponse객체가 새롭게 생성되지 않음(공유됨)
 - AnnotationHandlerMapping
 - HandlerAdpater
 - ViewResolver
+
+![img.png](img.png)
+https://www.w3schools.blog/spring-mvc-execution-flow
