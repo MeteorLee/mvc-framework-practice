@@ -9,7 +9,6 @@ import org.example.view.ViewResolver;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
@@ -27,6 +26,8 @@ public class DispatcherServlet extends HttpServlet {
 
     private RequestMappingHandlerMapping rmhm;
 
+    private List<HandlerAdapter> handlerAdapters;
+
     private List<ViewResolver> viewResolvers;
 
     @Override
@@ -34,6 +35,7 @@ public class DispatcherServlet extends HttpServlet {
         rmhm = new RequestMappingHandlerMapping();
         rmhm.init();
 
+        handlerAdapters = List.of(new SimpleControllerHandlerAdapter());
         viewResolvers = Collections.singletonList(new JSPViewResolver());
     }
 
@@ -44,11 +46,17 @@ public class DispatcherServlet extends HttpServlet {
         try {
             Controller handler = rmhm.findHandler(new HandlerKey(RequestMethod.valueOf(request.getMethod()),
                     request.getRequestURI()));
-            String viewName = handler.handlerRequest(request, response);
+
+            HandlerAdapter handlerAdapter = handlerAdapters.stream()
+                    .filter(ha -> ha.supports(handler))
+                    .findFirst()
+                    .orElseThrow(() -> new ServletException("No adapter for handler [" + handler + "]"));
+
+            ModelAndView modelandView = handlerAdapter.handle(request, response, handler);
 
             for (ViewResolver viewResolver : viewResolvers) {
-                View view = viewResolver.resolveVies(viewName);
-                view.render(new HashMap<>(), request, response);
+                View view = viewResolver.resolveVies(modelandView.getViewName());
+                view.render(modelandView.getModel(), request, response);
             }
 
         } catch (Exception e) {
