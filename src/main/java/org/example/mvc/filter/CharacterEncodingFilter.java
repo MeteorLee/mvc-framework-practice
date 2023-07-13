@@ -1,4 +1,4 @@
-package org.example.filter;
+package org.example.mvc.filter;
 
 import javax.servlet.*;
 import javax.servlet.annotation.WebFilter;

@@ -3,9 +3,9 @@ package org.example.mvc;
 
 import org.example.mvc.controller.Controller;
 import org.example.mvc.controller.RequestMethod;
-import org.example.view.JSPViewResolver;
-import org.example.view.View;
-import org.example.view.ViewResolver;
+import org.example.mvc.view.JSPViewResolver;
+import org.example.mvc.view.View;
+import org.example.mvc.view.ViewResolver;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -16,7 +16,6 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 import java.util.Collections;
-import java.util.HashMap;
 import java.util.List;
 
 @WebServlet("/")
