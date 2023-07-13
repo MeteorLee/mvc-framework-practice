@@ -3,6 +3,9 @@ package org.example.mvc;
 
 import org.example.mvc.controller.Controller;
 import org.example.mvc.controller.RequestMethod;
+import org.example.view.JSPViewResolver;
+import org.example.view.View;
+import org.example.view.ViewResolver;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -13,6 +16,9 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
+import java.util.Collections;
+import java.util.HashMap;
+import java.util.List;
 
 @WebServlet("/")
 public class DispatcherServlet extends HttpServlet {
@@ -21,10 +27,14 @@ public class DispatcherServlet extends HttpServlet {
 
     private RequestMappingHandlerMapping rmhm;
 
+    private List<ViewResolver> viewResolvers;
+
     @Override
     public void init() throws ServletException {
         rmhm = new RequestMappingHandlerMapping();
         rmhm.init();
+
+        viewResolvers = Collections.singletonList(new JSPViewResolver());
     }
 
     @Override
@@ -36,8 +46,10 @@ public class DispatcherServlet extends HttpServlet {
                     request.getRequestURI()));
             String viewName = handler.handlerRequest(request, response);
 
-            RequestDispatcher requestDispatcher = request.getRequestDispatcher(viewName);
-            requestDispatcher.forward(request, response);
+            for (ViewResolver viewResolver : viewResolvers) {
+                View view = viewResolver.resolveVies(viewName);
+                view.render(new HashMap<>(), request, response);
+            }
 
         } catch (Exception e) {
             log.error("exception occurred: [{}]", e.getMessage(), e);
