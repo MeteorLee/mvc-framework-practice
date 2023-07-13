@@ -25,3 +25,8 @@ HttpServletResponse객체가 새롭게 생성되지 않음(공유됨)
 - Redirect 방식은 클라이언트로부터 새로운 요청이기 때문에 새로운 HttpServletRequest, HttpServletResponse 객체가 생성됨
 - HttpServletResponse 객체의 sendRedirect() 이용
 
+## Tomcat 서버 띄울 때 주의할 점
+
+- 세팅에서 gradle에서 빌드러닝을 Gradle -> Intellij IDEA로 변경해주기
+- Project Structure에서 -> 모듈을 들어가서 -> Main -> Output Path 를 '프로젝트경로\webapp(s)\WEB-INF\classes' 로 설정한다
+
