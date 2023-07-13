@@ -30,3 +30,12 @@ HttpServletResponse객체가 새롭게 생성되지 않음(공유됨)
 - 세팅에서 gradle에서 빌드러닝을 Gradle -> Intellij IDEA로 변경해주기
 - Project Structure에서 -> 모듈을 들어가서 -> Main -> Output Path 를 '프로젝트경로\webapp(s)\WEB-INF\classes' 로 설정한다
 
+
+## 실습
+
+애노테이션 기반 MVC 프레임 워크 만들기
+
+- DispatcherServlet
+- AnnotationHandlerMapping
+- HandlerAdpater
+- ViewResolver
