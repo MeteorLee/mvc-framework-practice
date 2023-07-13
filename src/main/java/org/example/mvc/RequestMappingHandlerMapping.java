@@ -5,7 +5,7 @@ import org.example.mvc.controller.*;
 import java.util.HashMap;
 import java.util.Map;
 
-public class RequestMappingHandlerMapping {
+public class RequestMappingHandlerMapping implements HandlerMapping {
 
     // /users 로 들어오면 UsersController를 호출해줘
     // [key] : users [value] : UserController
