@@ -24,6 +24,9 @@ dependencies {
 
     // 로그
     implementation 'ch.qos.logback:logback-classic:1.2.3'
+
+    // 리플렉션
+    implementation 'org.reflections:reflections:0.9.12'
 }
 
 test {
